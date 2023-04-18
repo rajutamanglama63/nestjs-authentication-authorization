@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Request } from "express";
+import * as bcrypt from 'bcrypt';
 import { UserService } from "src/user/user.service";
 
 @Injectable()
@@ -22,7 +23,8 @@ export class AuthenticationGuard implements CanActivate {
             throw new UnauthorizedException("User does not exist.")
         }
 
-        if(user.password !== request.body.password) {
+        const isMatch = await bcrypt.compare(request.body.password, user.password)
+        if(!isMatch) {
             throw new UnauthorizedException("Invalid credentials.")
         }
 
