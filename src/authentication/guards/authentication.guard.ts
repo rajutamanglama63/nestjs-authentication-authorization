@@ -11,13 +11,14 @@ export class AuthenticationGuard implements CanActivate {
         const ctx = context.switchToHttp()
 
         const request = ctx.getRequest<Request>();
-
+        console.log("rreq: ", request.body)
         // const users = await this.userService.findAll()
         const user = await this.userService.findUserByEmail(request.body.email)
+        console.log("user: ", user)
 
         // const user = users.find((user) => user.email === request.body.email)
 
-        if(user === undefined) {
+        if(!user) {
             throw new UnauthorizedException("User does not exist.")
         }
 

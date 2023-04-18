@@ -19,10 +19,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
             throw new UnauthorizedException("User does not exist.")
         }
 
-        if(user !== undefined && user.password === password) {
-            return user;
+        if(user === undefined && user.password !== password) {
+            throw new UnauthorizedException("Invalid Credentials.")
         }
-        // throw new UnauthorizedException("Invalid Credentials.")
+        return user;
 
     }
 }
