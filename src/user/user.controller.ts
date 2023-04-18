@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UserGuard } from "./guards/user.guard";
 import { UserPipe } from "./pipes/user.pipe";
@@ -19,4 +19,11 @@ export class UserController {
     findAll() {
         return this.userService.findAll()
     }
+
+    @Get()
+    findUserByEmail(email: string) {
+        return this.userService.findUserByEmail(email)
+    }
+
+    
 }
