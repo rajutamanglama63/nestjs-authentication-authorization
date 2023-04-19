@@ -1,6 +1,6 @@
-import {  Controller, Post, UseGuards, Req, Res } from "@nestjs/common";
+import {  Controller, Post, UseGuards, Req, Res, Request } from "@nestjs/common";
 // import { AuthGuard } from "@nestjs/passport";
-import { Request, Response } from "express";
+// import { Request, Response } from "express";
 import { AuthenticationService } from "./authentication.service";
 import { AuthenticationGuard } from "./guards/authentication.guard";
 
@@ -9,20 +9,23 @@ export class UserAuthentication {
     constructor(private readonly authenticationService: AuthenticationService) {}
 
     // with using Passport library
-    // @Post("/login")
+    @Post("/login")
     // @UseGuards(AuthGuard("local"))
-    // login(@Request() req) {
-    //     return req.user
-    // }
+    login(@Request() req) {
+        console.log("req: ", req.body)
+        return this.authenticationService.generateToken(req.body)
+    }
 
 
     // without using Passsport library
-    @Post("/login")
-    @UseGuards(AuthenticationGuard)
-    login(@Req() request: Request, @Res() response: Response) {
-        console.log("req: ", request.body)
+    // @Post("/login")
+    // @UseGuards(AuthenticationGuard)
+    // login(@Req() request: Request, @Res() response: Response) {
+    //     console.log("req: ", request.body)
+   
+        
+    //     return this.authenticationService.generateToken(request.body)
  
-        return this.authenticationService.generateToken(request.body)
-        // return "Successfully logged in."
-    }
+    //     // return "Successfully logged in."
+    // }
 }
