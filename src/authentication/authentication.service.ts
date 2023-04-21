@@ -10,13 +10,13 @@ export class AuthenticationService {
 
     // genereting token or in simple words we can say that we are creating id card
     async generateToken(payload: User): Promise<string> {
-        console.log("payload: ", payload)
 
         // const token = jwt.sign(payload, this.jwtSecret)
         // console.log("token: ", token)
 
         // return token
+        const data = {email: payload.email}
 
-        return await this.jwtService.signAsync(payload)
+        return await this.jwtService.signAsync(data)
     }
 }

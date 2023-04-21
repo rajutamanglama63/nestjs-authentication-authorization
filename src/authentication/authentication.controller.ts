@@ -1,5 +1,5 @@
 import {  Controller, Post, UseGuards, Req, Res, Request } from "@nestjs/common";
-// import { AuthGuard } from "@nestjs/passport";
+import { AuthGuard } from "@nestjs/passport";
 // import { Request, Response } from "express";
 import { AuthenticationService } from "./authentication.service";
 import { AuthenticationGuard } from "./guards/authentication.guard";
@@ -10,11 +10,14 @@ export class UserAuthentication {
 
     // with using Passport library
     @Post("/login")
-    // @UseGuards(AuthGuard("local"))
+    @UseGuards(AuthenticationGuard)
     login(@Request() req) {
-        console.log("req: ", req.body)
+        console.log("from controller: ", req.body)
+        
         return this.authenticationService.generateToken(req.body)
     }
+
+    
 
 
     // without using Passsport library

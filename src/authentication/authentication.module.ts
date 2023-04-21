@@ -7,7 +7,7 @@ import { AuthenticationService } from './authentication.service';
 import { LocalStrategy } from './local.strategy';
 
 @Module({
-  imports: [PassportModule, UserModule, JwtModule.register({
+  imports: [PassportModule.register({ defaultStrategy: 'local' }), UserModule, JwtModule.register({
     secret: "key",
     signOptions: {
       expiresIn: "60s"
